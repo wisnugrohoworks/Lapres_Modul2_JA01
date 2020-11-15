@@ -52,34 +52,34 @@ d. login ke semua uml
        
 e. jalankan `nano /etc/sysctl.conf` untuk menghilangkan tanda pagar (#) bagian net.ipv4.ip_forward=1 dengan perintah pada router surabaya hingga seperti dibawah ini
 
-   (gambar nano /etc/sysctl.conf ROUTER)
+   ![pre-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/pre-1.jpg?raw=true)
 
 f. jalankan  `sysctl -p`
 g. jalankan  `nano /etc/network/interfaces` untuk setting IP dari setiap UML 
 
     SURABAYA
     
-   (gambar  nano /etc/network/interfaces ROUTER)
+   ![pre-2](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/pre-2.jpg?raw=true)
    
    SIDOARJO
    
-   (gambar  nano /etc/network/interfaces ROUTER)
+   ![pre-3](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/pre-3.jpg?raw=true)
    
    GRESIK
    
-   (gambar  nano /etc/network/interfaces ROUTER)
+   ![pre-4](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/pre-4.jpg?raw=true)
    
    PROBOLINGGO
    
-   (gambar  nano /etc/network/interfaces ROUTER)
+   ![pre-5](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/pre-5.jpg?raw=true)
    
    MALANG
    
-   (gambar  nano /etc/network/interfaces ROUTER)
+   ![pre-6](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/pre-6.jpg?raw=true)
    
    MOJOKERTO
    
-   (gambar  nano /etc/network/interfaces ROUTER)
+   ![pre-7](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/pre-7.jpg?raw=true)
    
    
 h. Restart network dengan mengetikkan service networking restart atau /etc/init.d/networking restart di setiap UML.
@@ -99,12 +99,12 @@ yyy adalah nama kelompok (misal a01) jadi website utamanya adalah http://semerua
 a. pada server MALANG,update package list dengan perintah `apt-get update`
 b. install  bind9 pada dengan perintah  `apt-get install bind9 -y`
 c. konfigurasi domain pada server MALANG dengan nano /etc/bind/named.conf.local
-  (gambar/konfigurasi zone)
+  ![1-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/1-1.jpg?raw=true)
   
 d. buat folder dengan perintah mkdir /etc/bind/semerua01.com
 e. copykan file db.local pada path /etc/bind ke dalam folder semerua01.com yang baru saja dibuat dan diubah namanya menjadi jarkom
 f. lakukan `nano /etc/bind/jarkom/semeru.a01.pw` dan koonfigurasikan seperti pada gambar
-  (gambarnano /etc/bind/jarkom/semeru.a01.pw)
+  ![1-2](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/1-2.jpg?raw=true)
   
   
 ### 2.  
@@ -112,7 +112,7 @@ f. lakukan `nano /etc/bind/jarkom/semeru.a01.pw` dan koonfigurasikan seperti pad
 a. lakukan  `nano /etc/bind/jarkom/semerua01.pw`
 b. tambahkan dibawahnya 
   seperti pada gambar dibawah ini 
-    (gambarnano /etc/bind/jarkom/semeru.a01.pw)
+    ![2-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/2-1.jpg?raw=true)
 c. lakukan `service bind9 restart` 
 
 ### 3.  
@@ -124,13 +124,15 @@ Server ​PROBOLINGGO
 a. lakukan  `nano /etc/bind/jarkom/semerua01.pw`
 b. tambahkan dibawahnya 
   seperti pada gambar dibawah ini (sudah ditambah sebelumnya)
-    (gambarnano /etc/bind/jarkom/semeru.a01.pw)
+    ![3-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/3-1.jpg?raw=true)
 c. lakukan `service bind9 restart` 
 
 ### 4.  
 membuat reverse domain untuk domain utama
 a. jalankan  `nano /etc/bind/named.conf.local`
 b. Lalu tambahkan konfigurasi berikut 
+
+![4-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/4-1.jpg?raw=true)
 
 
 ### 5.  
@@ -139,7 +141,7 @@ membuat DNS Server Slave pada ​MOJOKERTO​
 #### Konfigurasi pada server MALANG
 
 a. Edit file  `nano /etc/bind/named.conf.local`
-    (gambar/koonfigurasi zone type master)
+    ![5-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/5-1.jpg?raw=true)
 b. service bind9 restart
 
 #### Konfigurasi pada server MOJOKERTO
@@ -147,18 +149,22 @@ b. service bind9 restart
 a)  update package lists dengan menjalankan `apt-get update`
 b)  install  bind9 pada MOJOKERTO dengan perintah `apt-get install bind9 -y`
 c)  Edit file  `nano /etc/bind/named.conf.local` pada MOJOKERTO 
-    (gambar/koonfigurasi zone type slave)
+    ![5-2](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/5-2.jpg?raw=true)
 d)  service bind9 restart
 
 
 #### Testing
 a. Pada server MALANG silahkan matikan service bind9
   `service bind9 stop`
+  
+  ![5-3](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/5-3.jpg?raw=true)
 
 b. Pada client GRESIK pastikan pengaturan nameserver mengarah ke IP MALANG dan IP MOJOKERTO
-  (gambar etc/resolv.conf)
 
 c. Lakukan ping semerua01.pw pada client GRESIK. Jika ping berhasil maka konfigurasi DNS slave telah berhasil
+
+![5-4](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/5-4.jpg?raw=true)
+
 
 ### 6. 
 Selain website utama Bibah juga meminta
@@ -174,10 +180,10 @@ b. edit file nano /etc/bind/named.conf.options
 c. comment dnssec-validation auto; dan tambahkan baris berikut pada /etc/bind/named.conf.options
   allow-query{any;};
   
-  (gambar/etc/bind/named.conf.options)
+  ![6-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/6-1.jpg?raw=true)
  
    nano /etc/bind/named.conf.local
-  (gambar/etc/bind/named.conf.options)
+  ![6-2](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/6-2.jpg?raw=true)
 
 d. service bind9 restart
 
@@ -188,10 +194,10 @@ d. service bind9 restart
 a. nano /etc/bind/named.conf.options
 b. comment dnssec-validation auto; dan tambahkan baris berikut pada /etc/bind/named.conf.options
     allow-query{any;};
- (gambar/etc/bind/named.conf.options)
+ ![6-3](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/6-3.jpg?raw=true)
 
    nano /etc/bind/named.conf.local
-  (gambar/etc/bind/named.conf.options)
+  ![6-4](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/6-4.jpg?raw=true)
 
 
 ### 7.  
@@ -199,7 +205,7 @@ Bibah juga ingin memberi petunjuk mendaki gunung semeru kepada anggota komunitas
 
 a.  buka /etc/bind/delegasi/gunung.semerua01.pw dan edit file hingga menjadi seperti digambar gambar /etc/bind/delegasi/gunung.semerua01.pw
 
-
+![7-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/7-1.jpg?raw=true)
 
 
 ### 8.
@@ -217,12 +223,15 @@ ServerAlias www.semerua01.pw
 
 Ubah DocumentRoot menjadi /var/www/semerua01.pw
 
+![8-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/8-1.jpg?raw=true)
+
 f. Aktifkan konfigurasi semerua01 Gunakan perintah a2ensites semerua01.pw
 
 g. service apache2 restart
 
 h. Pindah ke directory /var/www. lalu unzip file hasil download dari wget dan ubah nama menjadi semerua01.com
 
+![8-2](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/8-2.jpg?raw=true)
 
 ### 9.
 Awalnya web dapat diakses menggunakan alamat http://semeruyyy.pw/index.php/home. Karena dirasa alamat urlnya kurang bagus, maka (9) diaktifkan mod rewrite agar urlnya menjadi http://semeruyyy.pw/home.
@@ -233,13 +242,13 @@ b. Restart apache dengan perintah `service apache2 restart`
 
 c. Pindah ke directory /var/www/semerua01.pw dan buat file .htaccess dengan isi file
 
-![9](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/9-htaccess.jpg?raw=true)
+![9-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/9-1.jpg?raw=true)
 
 d. Restart apache dengan perintah `service apache2 restart`
 
 Berikut ini adalah screenshot apabila kami membuka `semerua01.pw/home`
 
-(GAMBAR SEMERUa01.pw)
+![9-2](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/9-2.jpg?raw=true)
 
 
 ### 10.
@@ -304,7 +313,7 @@ ServerName penanjakan.semerua01.pw
         </Directory>
 ```
 
-![10](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/10-sites.jpg?raw=true)
+![10-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/10-1.jpg?raw=true)
 
 
 ### 11.
@@ -331,15 +340,13 @@ b.  Situs penanjakan.semerua01.pw diaktifkan dengan perintah `a2ensite penanjaka
 
 c.  Berikut ini adalah gambar kami mengakses penanjakan.semerua01.pw pada setiap folder:
 
-![11-1](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/11-1.jpg?raw=true)
+![11-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/11-1.jpg?raw=true)
 
-![11-2](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/11-2.jpg?raw=true)
+![11-2](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/11-2.jpg?raw=true)
 
-![11-3](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/11-3.jpg?raw=true)
+![11-3](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/11-3.jpg?raw=true)
 
-![11-4](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/11-4.jpg?raw=true)
-
-![11-5](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/11-5.jpg?raw=true)
+![11-4](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/11-4.jpg?raw=true)
 
 
 ### 12.
@@ -349,13 +356,13 @@ a.  Pindah ke folder `/var/www/penanjakan.semerua01.pw`. Kemudian `nano .htacces
 
 `ErrorDocument 404 http://penanjakan.semerua01.pw/errors/404.html`
 
-(GAMBAR 12-1)
+![12-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/12-1.jpg?raw=true)
 
 b.  Restart server Apache dengan perintah `service apache2 restart`
 
 Berikut ini adalah bukti redirect ke 404.html apabila kami mengakses `penanjakan.semerua01.pw/oke`:
 
-![12](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/12.jpg?raw=true)
+![12-2](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/12-2.jpg?raw=true)
 
 
 ### 13.
@@ -365,11 +372,11 @@ a.  Edit file `penanjakan.semerua01.pw` dengan perintah `nano /etc/apache2/sites
 
 b.  Tambah perintah `Alias "/js" "/var/www/penanjakan.semerua01.pw/public/javascripts"` dibawah directory Javascript
 
-![13-1](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/13-1.jpg?raw=true)
+![13-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/13-1.jpg?raw=true)
 
 Berikut ini adalah screenshot apabila kami mengakses `penanjakan.semeru.a01.pw/js`:
 
-![13-2](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/13-2.jpg?raw=true)
+![13-2](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/13-2.jpg?raw=true)
 
 
 ### 14.
@@ -385,11 +392,11 @@ d.  Pindah ke `/etc/apache2/sites-available` dan copy file `default` menjadi `na
 
 e.  Edit file `naik.gunung.semerua01.pw-8888`, dan pada VirtualHost, angka 80 diganti menjadi 8888. Sehingga isi dari file `naik.gunung.semerua01.pw-8888` menjadi seperti berikut:
 
-![14-1](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/14-1.jpg?raw=true)
+![14-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/14-1.jpg?raw=true)
 
 f.  Pindah ke `/etc/apache2`, kemudian edit file `ports.conf`, dan tambahkan `Listen 8888` dibawah `Listen 80`
 
-![14-2](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/14-2.jpg?raw=true)
+![14-2](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/14-2.jpg?raw=true)
 
 g.  Aktifkan website naik.gunung.semerua01.pw dengan perintah `a2ensite naik.gunung.semerua01.pw`
 
@@ -397,7 +404,7 @@ h.  Restart server Apache dengan perintah `service apache2 restart`
 
 Berikut ini adalah screenshot apabila kami mengakses `naik.gunung.semerua01.pw:8888`
 
-![14-3](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/14-3.jpg?raw=true)
+![14-3](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/14-3.jpg?raw=true)
 
 
 ### 15.
@@ -416,7 +423,7 @@ AuthUserFile /etc/apache2/.htpasswd
 Require valid-user
 ```
 
-(GAMBAR HTACCESS)
+![15-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/15-1.jpg?raw=true)
 
 **Keterangan:**
 
@@ -443,7 +450,7 @@ e. Restart server Apache dengan perintah `service apache2 restart`
 
 Berikut ini adalah screenshot pada saat naik.gunung.semerua01.pw:8888 diakses
 
-(SCREENSHOT AKSES NAIK GUNUNG)
+![15-2](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/15-2.jpg?raw=true)
 
 
 ### 16.
@@ -455,7 +462,7 @@ a.  Edit file `default` pada `/etc/apache2/sites-available` dan edit DocumentRoo
 Redirect permanent / http://semerua01.pw
 ```
 
-(GAMBAR 16-1)
+![16-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/16-1.jpg?raw=true)
 
 b.  Restart server Apache dengan perintah `service apache2 restart`
 
@@ -473,7 +480,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^/?(.*)semeru(.*)\.jpg$ /public/images/semeru.jpg [R=301,L]
 ```
 
-(GAMBAR 17-1)
+![17-1](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/17-1.jpg?raw=true)
 
 **Keterangan:**
 
@@ -488,5 +495,5 @@ c. Restart server Apache dengan perintah `service apache2 restart`
 
 Berikut ini adalah screenshot apabila kami mengakses `penanjakan.semerua01.pw/public/images/semeruwww.jpg`, maka akan redirect ke `penanjakan.semerua01.pw/public/images/semeru.jpg`
 
-(GAMBAR 17-2)
+![17-2](https://github.com/wisnugrohoworks/Lapres_Modul2_JA01/blob/main/img/17-2.jpg?raw=true)
 
