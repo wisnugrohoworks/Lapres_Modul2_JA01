@@ -1,5 +1,5 @@
 # Praktikum Modul 2 Jaringan Komputer 2020
-Oleh Kelompok a01
+Oleh Kelompok A01
 * _Wisnu (05111740000170)_
 * _Salsabila Harlen (05111840000127)_
 
@@ -50,20 +50,37 @@ d. login ke semua uml
        username : root
        password  : praktikum
        
-e. jalankan `nano /etc/sysctl.conf` untuk menghilangkan tanda pagar (#) bagian net.ipv4.ip_forward=1 dengan perintah pada router    surabaya hingga seperti dibawah ini
+e. jalankan `nano /etc/sysctl.conf` untuk menghilangkan tanda pagar (#) bagian net.ipv4.ip_forward=1 dengan perintah pada router surabaya hingga seperti dibawah ini
 
    (gambar nano /etc/sysctl.conf ROUTER)
 
 f. jalankan  `sysctl -p`
 g. jalankan  `nano /etc/network/interfaces` untuk setting IP dari setiap UML 
 
+    SURABAYA
+    
    (gambar  nano /etc/network/interfaces ROUTER)
+   
+   SIDOARJO
+   
    (gambar  nano /etc/network/interfaces ROUTER)
+   
+   GRESIK
+   
    (gambar  nano /etc/network/interfaces ROUTER)
+   
+   PROBOLINGGO
+   
    (gambar  nano /etc/network/interfaces ROUTER)
+   
+   MALANG
+   
    (gambar  nano /etc/network/interfaces ROUTER)
+   
+   MOJOKERTO
+   
    (gambar  nano /etc/network/interfaces ROUTER)
-   (gambar  nano /etc/network/interfaces ROUTER)
+   
    
 h. Restart network dengan mengetikkan service networking restart atau /etc/init.d/networking restart di setiap UML.
 
@@ -141,7 +158,7 @@ a. Pada server MALANG silahkan matikan service bind9
 b. Pada client GRESIK pastikan pengaturan nameserver mengarah ke IP MALANG dan IP MOJOKERTO
   (gambar etc/resolv.conf)
 
-c. Lakukan ping ke .... pada client GRESIK. Jika ping berhasil maka konfigurasi DNS slave telah berhasil
+c. Lakukan ping semerua01.pw pada client GRESIK. Jika ping berhasil maka konfigurasi DNS slave telah berhasil
 
 ### 6. 
 Selain website utama Bibah juga meminta
@@ -178,9 +195,33 @@ b. comment dnssec-validation auto; dan tambahkan baris berikut pada /etc/bind/na
 
 
 ### 7.  
+Bibah juga ingin memberi petunjuk mendaki gunung semeru kepada anggota komunitas sehingga dia meminta dibuatkan (7) subdomain dengan nama ​http://naik.gunung.semeruyyy.pw​, domain ini diarahkan ke IP Server ​PROBOLINGGO.
+
+a.  buka /etc/bind/delegasi/gunung.semerua01.pw dan edit file hingga menjadi seperti digambar gambar /etc/bind/delegasi/gunung.semerua01.pw
+
+
 
 
 ### 8.
+Setelah selesai membuat keseluruhan domain, kamu diminta untuk segera mengatur web server. (8) Domain ​http://semeruyyy.pw ​memiliki ​DocumentRoot​ pada ​/var/www/semeruyyy.pw​.
+
+a. Install apache di PROBOLINGGO (apt-get install apache2)
+
+b. Install php di PROBOLINGGO (apt-get install php5)
+
+c. Pindah ke directory /etc/apache2/sites-available
+
+ServerName semerua01.pw 
+
+ServerAlias www.semerua01.pw 
+
+Ubah DocumentRoot menjadi /var/www/semerua01.pw
+
+f. Aktifkan konfigurasi semerua01 Gunakan perintah a2ensites semerua01.pw
+
+g. service apache2 restart
+
+h. Pindah ke directory /var/www. lalu unzip file hasil download dari wget dan ubah nama menjadi semerua01.com
 
 
 ### 9.
@@ -308,9 +349,11 @@ a.  Pindah ke folder `/var/www/penanjakan.semerua01.pw`. Kemudian `nano .htacces
 
 `ErrorDocument 404 http://penanjakan.semerua01.pw/errors/404.html`
 
+(GAMBAR 12-1)
+
 b.  Restart server Apache dengan perintah `service apache2 restart`
 
-Berikut ini adalah bukti redirect ke 404.html apabila kami mengakses `penanjakan.semerua01.pw/cobainajayuk`:
+Berikut ini adalah bukti redirect ke 404.html apabila kami mengakses `penanjakan.semerua01.pw/oke`:
 
 ![12](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/12.jpg?raw=true)
 
@@ -324,7 +367,7 @@ b.  Tambah perintah `Alias "/js" "/var/www/penanjakan.semerua01.pw/public/javasc
 
 ![13-1](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/13-1.jpg?raw=true)
 
-Berikut ini adalah screenshot apabila kami mengakses `penanjakan.semeru.a01.pw`:
+Berikut ini adalah screenshot apabila kami mengakses `penanjakan.semeru.a01.pw/js`:
 
 ![13-2](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/13-2.jpg?raw=true)
 
@@ -352,7 +395,7 @@ g.  Aktifkan website naik.gunung.semerua01.pw dengan perintah `a2ensite naik.gun
 
 h.  Restart server Apache dengan perintah `service apache2 restart`
 
-Berikut ini adalah screenshot apabila kami mengakses `naik.gunung.semerua01.pw`
+Berikut ini adalah screenshot apabila kami mengakses `naik.gunung.semerua01.pw:8888`
 
 ![14-3](https://github.com/prolifel/jarkom-modul2-private/blob/main/img/14-3.jpg?raw=true)
 
@@ -443,7 +486,7 @@ RewriteRule ^/?(.*)semeru(.*)\.jpg$ /public/images/semeru.jpg [R=301,L]
 
 c. Restart server Apache dengan perintah `service apache2 restart`
 
-Berikut ini adalah screenshot apabila kami mengakses `penanjakan.semerua01.pw/public/images/semeruinaja.jpg`, maka akan redirect ke `penanjakan.semerua01.pw/public/images/semeru.jpg`
+Berikut ini adalah screenshot apabila kami mengakses `penanjakan.semerua01.pw/public/images/semeruwww.jpg`, maka akan redirect ke `penanjakan.semerua01.pw/public/images/semeru.jpg`
 
 (GAMBAR 17-2)
 
